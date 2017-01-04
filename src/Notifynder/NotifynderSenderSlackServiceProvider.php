@@ -2,9 +2,8 @@
 
 namespace Astrotomic\Notifynder;
 
-use Astrotomic\Notifynder\Senders\EmailSender;
-use Astrotomic\Notifynder\Senders\SlackSender;
 use Illuminate\Support\ServiceProvider;
+use Astrotomic\Notifynder\Senders\SlackSender;
 
 class NotifynderSenderSlackServiceProvider extends ServiceProvider
 {
