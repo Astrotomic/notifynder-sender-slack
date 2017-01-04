@@ -2,9 +2,9 @@
 
 namespace Astrotomic\Notifynder\Senders;
 
+use Maknz\Slack\Client;
 use Fenos\Notifynder\Contracts\SenderContract;
 use Fenos\Notifynder\Contracts\SenderManagerContract;
-use Maknz\Slack\Client;
 
 class SlackSender implements SenderContract
 {
@@ -37,7 +37,7 @@ class SlackSender implements SenderContract
         $client = new Client($webhook);
         foreach ($this->notifications as $notification) {
             $message = call_user_func($callback, $client->createMessage(), $notification);
-            if(empty($message->getText())) {
+            if (empty($message->getText())) {
                 $message->setText($notification->getText());
             }
             $message->send();
