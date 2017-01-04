@@ -42,7 +42,7 @@ Add the following array to `config/notifynder.php`
 ```php
 'senders' => [
     'slack' => [
-        'webhook' => 
+        'webhook' => 'https://hooks.slack.com/...',
         'callback' => function(\Maknz\Slack\Message $message, \Fenos\Notifynder\Models\Notification $notification) {
             // handle the message and append the from, to, icon and so on
             // https://github.com/maknz/slack#explicit-message-creation
