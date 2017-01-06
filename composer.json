@@ -1,7 +1,7 @@
 {
   "name": "astrotomic/notifynder-sender-slack",
   "description": "Slack Sender for the Notifynder package.",
-  "keywords": ["notifications", "laravel"],
+  "keywords": ["notifications", "notifynder", "laravel", "slack", "chat", "webhook"],
   "license": "MIT",
   "authors": [
     {
