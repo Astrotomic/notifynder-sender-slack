@@ -2,15 +2,15 @@
 
 namespace Astrotomic\Notifynder\Senders;
 
-use Fenos\Notifynder\Traits\SenderCallback;
 use Maknz\Slack\Client;
+use Fenos\Notifynder\Traits\SenderCallback;
 use Fenos\Notifynder\Contracts\SenderContract;
 use Fenos\Notifynder\Contracts\SenderManagerContract;
 
 class SlackSender implements SenderContract
 {
     use SenderCallback;
-    
+
     /**
      * @var array
      */
