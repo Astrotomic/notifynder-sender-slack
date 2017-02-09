@@ -2,16 +2,24 @@
 
 namespace Astrotomic\Notifynder\Senders;
 
+use Fenos\Notifynder\Traits\SenderCallback;
 use Maknz\Slack\Client;
 use Fenos\Notifynder\Contracts\SenderContract;
 use Fenos\Notifynder\Contracts\SenderManagerContract;
 
 class SlackSender implements SenderContract
 {
+    use SenderCallback;
+    
     /**
      * @var array
      */
     protected $notifications;
+
+    /**
+     * @var array
+     */
+    protected $config;
 
     /**
      * SlackSender constructor.
@@ -21,6 +29,7 @@ class SlackSender implements SenderContract
     public function __construct(array $notifications)
     {
         $this->notifications = $notifications;
+        $this->config = notifynder_config('senders.slack');
     }
 
     /**
@@ -31,9 +40,9 @@ class SlackSender implements SenderContract
      */
     public function send(SenderManagerContract $sender)
     {
-        $webhook = config('notifynder.senders.slack.webhook');
-        $callback = config('notifynder.senders.slack.callback');
-        $store = config('notifynder.senders.slack.store', false);
+        $webhook = $this->config['webhook'];
+        $store = $this->config['store'];
+        $callback = $this->getCallback();
         $client = new Client($webhook);
         foreach ($this->notifications as $notification) {
             $message = call_user_func($callback, $client->createMessage(), $notification);

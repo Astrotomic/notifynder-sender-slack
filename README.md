@@ -43,14 +43,33 @@ Add the following array to `config/notifynder.php`
 'senders' => [
     'slack' => [
         'webhook' => 'https://hooks.slack.com/...',
-        'callback' => function(\Maknz\Slack\Message $message, \Fenos\Notifynder\Models\Notification $notification) {
+        'store' => false, // wether you want to also store the notifications in database
+    ],
+],
+```
+
+Register the sender callback in your `app/Providers/AppServiceProvider.php`
+
+```php
+<?php
+namespace App\Providers;
+
+use Illuminate\Support\ServiceProvider;
+use Astrotomic\Notifynder\Senders\SlackSender;
+use Maknz\Slack\Message as SlackMessage;
+use Fenos\Notifynder\Builder\Notification;
+
+class AppServiceProvider extends ServiceProvider
+{
+    public function boot()
+    {
+        app('notifynder.sender')->setCallback(SlackSender::class, function (SlackMessage $message, Notification $notification) {
             // handle the message and append the from, to, icon and so on
             // https://github.com/maknz/slack#explicit-message-creation
             // you don't have to set the message text, by default (if empty) it is set in the sender itself
             // just return the message, don't send it - otherwise you will get the message two times
             return $message;
-        },
-        'store' => false, // wether you want to also store the notifications in database
-    ],
-],
+        });
+    }
+}
 ```
